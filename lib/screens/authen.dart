@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
+import '../screens/register.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -7,12 +8,18 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
-  Widget signUpButton() {
-    return RaisedButton(
+  Widget signUpButton(BuildContext context) {
+    return RaisedButton.icon(
+      icon: Icon(Icons.android), label: Text('Sign UP'),
       color: Colors.red,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Text('Sing Up'),
-      onPressed: () {},
+      //child: Text('Sing Up'),
+      onPressed: () {
+        print('You Click Sign Up');
+        var registerRoute =
+            MaterialPageRoute(builder: (BuildContext context) => Register());
+            Navigator.of(context).push(registerRoute);
+      },
     );
   }
 
@@ -87,11 +94,11 @@ class _AuthenState extends State<Authen> {
                 child: Row(children: <Widget>[
                   Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(right: 4.0),
-                        child: signInButton(),
+                    margin: EdgeInsets.only(right: 4.0),
+                    child: signInButton(),
                   )),
                   Expanded(
-                    child: signUpButton(),
+                    child: signUpButton(context),
                   )
                 ]))
           ],
