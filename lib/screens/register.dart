@@ -8,6 +8,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   //Explicit
   final formKey = GlobalKey<FormState>();
+  String nameString, emailString, passwordString;
 
   Widget passwordTextFormField() {
     return TextFormField(
@@ -20,11 +21,15 @@ class _RegisterState extends State<Register> {
           icon: Icon(
             Icons.vpn_key,
             color: Colors.red,
-          )),validator: (String value){
-            if (value.length <=5) {
-              return 'Please Type Password more 6 Charactor';
-            }
-          } ,
+          )),
+      validator: (String value) {
+        if (value.length <= 5) {
+          return 'Please Type Password more 6 Charactor';
+        }
+      },
+      onSaved: (String value) {
+        passwordString = value;
+      },
     );
   }
 
@@ -39,13 +44,17 @@ class _RegisterState extends State<Register> {
           icon: Icon(
             Icons.email,
             color: Colors.red,
-          )),validator: (String value){
-            if (value.length == 0) {
-              return 'Please Fill e-mail in the Blank ';
-            } else if (!((value.contains('@')) && (value.contains('.')))) {
-              return 'Please Fill e-mail in the Format';
-            }
-          },
+          )),
+      validator: (String value) {
+        if (value.length == 0) {
+          return 'Please Fill e-mail in the Blank ';
+        } else if (!((value.contains('@')) && (value.contains('.')))) {
+          return 'Please Fill e-mail in the Format';
+        }
+      },
+      onSaved: (String value) {
+        emailString = value;
+      },
     );
   }
 
@@ -60,11 +69,15 @@ class _RegisterState extends State<Register> {
           icon: Icon(
             Icons.account_circle,
             color: Colors.red,
-          )),validator: (String value){
-            if (value.length == 0) {
-              return 'Please Fill Name in the Blank';
-            } 
-          },
+          )),
+      validator: (String value) {
+        if (value.length == 0) {
+          return 'Please Fill Name in the Blank';
+        }
+      },
+      onSaved: (String value) {
+        nameString = value;
+      },
     );
   }
 
@@ -74,8 +87,8 @@ class _RegisterState extends State<Register> {
       tooltip: 'Upload To Firebase',
       onPressed: () {
         print('You Click Upload');
-        if (formKey.currentState.validate()) {
-          
+        if (formKey.currentState.validate()) {formKey.currentState.save();
+        print('name = $nameString, email = $emailString, password = $passwordString');
         }
       },
     );
@@ -84,13 +97,14 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
           title: Text('Register'),
           actions: <Widget>[uploadButton()],
         ),
-        body: Form(key: formKey,
+        body: Form(
+          key: formKey,
           child: Container(
             decoration: BoxDecoration(
                 gradient: RadialGradient(

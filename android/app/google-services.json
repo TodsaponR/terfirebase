@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1021612478791",
+    "firebase_url": "https://terfirebase.firebaseio.com",
+    "project_id": "terfirebase",
+    "storage_bucket": "terfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021612478791:android:df4cafa230a84f0d",
+        "android_client_info": {
+          "package_name": "dopa.go.th.terfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021612478791-if0kvietq2au97b37sr2np8onck3elps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dopa.go.th.terfirebase",
+            "certificate_hash": "e0c9c8500b6441b496c9a075d99a39fc3fd829fa"
+          }
+        },
+        {
+          "client_id": "1021612478791-laito0d87u5j0ctikngos4pf9vmn0bl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1_1tPB2NMVXKbjlS9GG3giH1ZWtncNTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021612478791-laito0d87u5j0ctikngos4pf9vmn0bl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
