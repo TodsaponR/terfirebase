@@ -86,8 +86,10 @@ class _AuthenState extends State<Authen> {
                 margin: EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Row(children: <Widget>[
                   Expanded(
-                    child: signInButton(),
-                  ),
+                      child: Container(
+                        margin: EdgeInsets.only(right: 4.0),
+                        child: signInButton(),
+                  )),
                   Expanded(
                     child: signUpButton(),
                   )
