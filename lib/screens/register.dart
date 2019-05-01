@@ -11,6 +11,12 @@ class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
   String nameString, emailString, passwordString;
 
+  //For Firebase
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  //for SnackBar
+  final snackBarKey = GlobalKey<ScaffoldState>();
+
   Widget passwordTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
@@ -59,8 +65,6 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  
-
   Widget nameTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
@@ -90,16 +94,45 @@ class _RegisterState extends State<Register> {
       tooltip: 'Upload To Firebase',
       onPressed: () {
         print('You Click Upload');
-        if (formKey.currentState.validate()) {formKey.currentState.save();
-        print('name = $nameString, email = $emailString, password = $passwordString');
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          print(
+              'name = $nameString, email = $emailString, password = $passwordString');
+          uploadValueToFirebase();
         }
       },
     );
   }
 
+  void uploadValueToFirebase() async {
+    FirebaseUser firebaseUser = await firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailString, password: passwordString)
+        .then((user) {
+      print('Register Success with ==>>> $user');
+    }).catchError((error) {
+      String errorString = error.message;
+      print('HAVE ERROR ==>>> $errorString');
+      showSnackBar(errorString);
+    });
+  }
+
+  void showSnackBar(String messageString) {
+    SnackBar snackBar = SnackBar(
+      duration: Duration(seconds: 10),
+      backgroundColor: Colors.red[900],
+      content: Text(messageString),
+      action: SnackBarAction(
+        label: 'close', onPressed: (){},
+      ),
+    );
+    snackBarKey.currentState.showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: snackBarKey,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
