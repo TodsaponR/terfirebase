@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 import '../screens/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -18,6 +21,9 @@ class _AuthenState extends State<Authen> {
 
   //Explicit
   String emailString, passwordString;
+
+  //For firebase
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   Widget signUpButton(BuildContext context) {
     return RaisedButton.icon(
@@ -45,9 +51,22 @@ class _AuthenState extends State<Authen> {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
           print('email ==>> $emailString, password ==>> $passwordString');
+          checkAuthen();
         }
       },
     );
+  }
+
+  void checkAuthen() async {
+    FirebaseUser firebaseUser = await firebaseAuth
+        .signInWithEmailAndPassword(
+            email: emailString, password: passwordString)
+        .then((objValue) {
+      print('Success Login ==>> ${objValue.toString()}');
+    }).catchError((objValue) {
+      String error = objValue.message;
+      print('Error ==>>> $error');
+    });
   }
 
   Widget passwordTextFormField() {
@@ -56,10 +75,11 @@ class _AuthenState extends State<Authen> {
       decoration:
           InputDecoration(labelText: 'Password :', hintText: 'Charactor 8-10'),
       validator: (String value) {
-        if (value.length <=5) {
+        if (value.length <= 5) {
           return titlePasswordFalse;
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         passwordString = value;
       },
     );
@@ -75,7 +95,8 @@ class _AuthenState extends State<Authen> {
         } else if (!((value.contains('@')) && (value.contains('.')))) {
           return titleEmailFalse;
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         emailString = value;
       },
     );
