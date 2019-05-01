@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -57,6 +58,8 @@ class _RegisterState extends State<Register> {
       },
     );
   }
+
+  
 
   Widget nameTextFormField() {
     return TextFormField(
